@@ -16,19 +16,26 @@ public class Application {
         String[] carArr = carNameAll.split(",");
         int carCnt = carArr.length;
         int[] carPositionNum = new int[carCnt];
-        System.out.println(Arrays.toString(carArr) + carCnt + Arrays.toString(carPositionNum));
+        // 각 Car 객체를 담은 배열
+        Car[] cars = new Car[carCnt];
+        for (int i = 0; i < carCnt; i++) {
+            cars[i] = new Car(carArr[i]);
+        }
         System.out.println("시도할 회수는 몇 회인가요?");
         int gameCnt = scanner.nextInt();
 
+        System.out.println();
         System.out.println("실행결과");
         for (int x = 0; x < gameCnt; x++) {
             for (int i = 0; i < carCnt; i++) {
                 int randomNum = RandomUtils.nextInt(0, 9);
                 if (randomNum > 4) {
                     carPositionNum[i] += 1;
+                    cars[i].addPosition();
                 }
-                System.out.print(" " + carArr[i] + " 랜덤(" + randomNum + ") : ");
-                int carPositionCnt = carPositionNum[i];
+                System.out.print(cars[i].getName() + " : ");
+//                System.out.print(" " + carArr[i] + " 랜덤(" + randomNum + ") : ");
+                int carPositionCnt = cars[i].getPosition();
                 if (carPositionCnt > 0) {
                     for (int k = 0; k < carPositionCnt; k++) {
                         System.out.print("-");
@@ -41,27 +48,24 @@ public class Application {
 
         System.out.println(Arrays.toString(carPositionNum));
         System.out.print("최종 우승자: ");
+        winner(cars);
+    }
 
+    private static void winner(Car[] cars) {
         int maxNum = -1;
         List<Integer> maxIdxList = new ArrayList<>();
-        for (int i = 0; i < carCnt; i++) {
-            if (maxNum < carPositionNum[i]) {
-                maxNum = carPositionNum[i];
-            }
+        for (int i = 0; i < cars.length; i++) {
+            if (maxNum < cars[i].getPosition()) maxNum = cars[i].getPosition();
         }
-        for (int i = 0; i < carCnt; i++) {
-            if (maxNum == carPositionNum[i]) {
-                maxIdxList.add(i);
-            }
+        for (int i = 0; i < cars.length; i++) {
+            if (maxNum == cars[i].getPosition()) maxIdxList.add(i);
         }
-        System.out.print(carArr[maxIdxList.get(0)]);
+        System.out.print(cars[maxIdxList.get(0)].getName());
         if (maxIdxList.size() > 1) {
             for (int i = 1; i < maxIdxList.size(); i++) {
-                System.out.print(", " + carArr[maxIdxList.get(i)]);
+                System.out.print(", " + cars[maxIdxList.get(i)].getName());
             }
         }
         System.out.println();
-        System.out.println("=========");
-        System.out.println("idx" + maxIdxList);
     }
 }
