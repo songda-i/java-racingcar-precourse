@@ -8,47 +8,47 @@ import utils.RandomUtils;
 
 public class Application {
 
+    private static final int STANDARD_NUMBER = 4;
+
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
         System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         String carNameAll = scanner.nextLine();
         String[] carArr = carNameAll.split(",");
-        int carCnt = carArr.length;
-        int[] carPositionNum = new int[carCnt];
         // 각 Car 객체를 담은 배열
-        Car[] cars = new Car[carCnt];
-        for (int i = 0; i < carCnt; i++) {
+        Car[] cars = new Car[carArr.length];
+        for (int i = 0; i < carArr.length; i++) {
             cars[i] = new Car(carArr[i]);
         }
         System.out.println("시도할 회수는 몇 회인가요?");
-        int gameCnt = scanner.nextInt();
+        int racingCnt = scanner.nextInt();
 
         System.out.println();
         System.out.println("실행결과");
-        for (int x = 0; x < gameCnt; x++) {
-            for (int i = 0; i < carCnt; i++) {
-                int randomNum = RandomUtils.nextInt(0, 9);
-                if (randomNum > 4) {
-                    carPositionNum[i] += 1;
-                    cars[i].addPosition();
+        for (int x = 0; x < racingCnt; x++) {
+            racingRound(cars);
+            System.out.println();
+        }
+        System.out.print("최종 우승자: ");
+        winner(cars);
+    }
+
+    private static void racingRound(Car[] cars) {
+        for (int i = 0; i < cars.length; i++) {
+            int randomNum = RandomUtils.nextInt(0, 9);
+            if (randomNum > STANDARD_NUMBER) {
+                cars[i].addPosition();
+            }
+            System.out.print(cars[i].getName() + " : ");
+            int carPositionCnt = cars[i].getPosition();
+            if (carPositionCnt > 0) {
+                for (int k = 0; k < carPositionCnt; k++) {
+                    System.out.print("-");
                 }
-                System.out.print(cars[i].getName() + " : ");
-//                System.out.print(" " + carArr[i] + " 랜덤(" + randomNum + ") : ");
-                int carPositionCnt = cars[i].getPosition();
-                if (carPositionCnt > 0) {
-                    for (int k = 0; k < carPositionCnt; k++) {
-                        System.out.print("-");
-                    }
-                }
-                System.out.println();
             }
             System.out.println();
         }
-
-        System.out.println(Arrays.toString(carPositionNum));
-        System.out.print("최종 우승자: ");
-        winner(cars);
     }
 
     private static void winner(Car[] cars) {
