@@ -13,9 +13,10 @@ public class Application {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
         View view = new View();
+        InputView inputView = new InputView();
         view.outputView("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         view.emptyView();
-        String carNameAll = scanner.nextLine();
+        String carNameAll = inputView.carsIn(scanner);
         String[] carArr = carNameAll.split(",");
         // 각 Car 객체를 담은 배열
         Car[] cars = new Car[carArr.length];
@@ -24,7 +25,7 @@ public class Application {
         }
         view.outputView("시도할 회수는 몇 회인가요?");
         view.emptyView();
-        int racingCnt = scanner.nextInt();
+        int racingCnt = inputView.racingCntIn(scanner);
 
         view.emptyView();
         view.outputView("실행결과");
