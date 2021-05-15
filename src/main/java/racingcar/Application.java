@@ -13,7 +13,9 @@ public class Application {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
-        System.out.println("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        View view = new View();
+        view.OutputView("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        view.EmptyView();
         String carNameAll = scanner.nextLine();
         String[] carArr = carNameAll.split(",");
         // 각 Car 객체를 담은 배열
@@ -21,37 +23,40 @@ public class Application {
         for (int i = 0; i < carArr.length; i++) {
             cars[i] = new Car(carArr[i]);
         }
-        System.out.println("시도할 회수는 몇 회인가요?");
+        view.OutputView("시도할 회수는 몇 회인가요?");
+        view.EmptyView();
         int racingCnt = scanner.nextInt();
 
-        System.out.println();
-        System.out.println("실행결과");
+        view.EmptyView();
+        view.OutputView("실행결과");
+        view.EmptyView();
         for (int x = 0; x < racingCnt; x++) {
-            racingRound(cars);
-            System.out.println();
+            racingRound(cars, view);
+            view.EmptyView();
         }
-        System.out.print("최종 우승자: ");
-        winner(cars);
+        view.OutputView("최종 우승자: ");
+        winner(cars, view);
     }
 
-    private static void racingRound(Car[] cars) {
+    private static void racingRound(Car[] cars, View view) {
         for (int i = 0; i < cars.length; i++) {
             int randomNum = RandomUtils.nextInt(0, 9);
             if (randomNum > STANDARD_NUMBER) {
                 cars[i].addPosition();
             }
-            System.out.print(cars[i].getName() + " : ");
+            view.OutputView(cars[i].getName());
+            view.OutputView(" : ");
             int carPositionCnt = cars[i].getPosition();
             if (carPositionCnt > 0) {
                 for (int k = 0; k < carPositionCnt; k++) {
-                    System.out.print("-");
+                    view.OutputView("-");
                 }
             }
-            System.out.println();
+            view.EmptyView();
         }
     }
 
-    private static void winner(Car[] cars) {
+    private static void winner(Car[] cars, View view) {
         int maxNum = -1;
         List<Integer> maxIdxList = new ArrayList<>();
         for (int i = 0; i < cars.length; i++) {
@@ -60,12 +65,12 @@ public class Application {
         for (int i = 0; i < cars.length; i++) {
             if (maxNum == cars[i].getPosition()) maxIdxList.add(i);
         }
-        System.out.print(cars[maxIdxList.get(0)].getName());
+        view.OutputView(cars[maxIdxList.get(0)].getName());
         if (maxIdxList.size() > 1) {
             for (int i = 1; i < maxIdxList.size(); i++) {
-                System.out.print(", " + cars[maxIdxList.get(i)].getName());
+                view.OutputView(", ");
+                view.OutputView(cars[maxIdxList.get(i)].getName());
             }
         }
-        System.out.println();
     }
 }
