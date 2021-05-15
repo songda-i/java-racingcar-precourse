@@ -2,11 +2,11 @@ package racingcar;
 
 public class View {
 
-    void InputView() {}
-    void OutputView(Object obj) {
+    void inputView() {}
+    void outputView(Object obj) {
         System.out.print(obj);
     }
-    void EmptyView() {
+    void emptyView() {
         System.out.println();
     }
 
