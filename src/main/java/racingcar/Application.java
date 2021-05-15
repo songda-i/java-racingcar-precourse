@@ -12,65 +12,55 @@ public class Application {
     public static void main(String[] args) {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
-        View view = new View();
+        OutputView outputView = new OutputView();
         InputView inputView = new InputView();
-        view.outputView("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
-        view.emptyView();
-        String carNameAll = inputView.carsIn(scanner);
-        String[] carArr = carNameAll.split(",");
-        // 각 Car 객체를 담은 배열
-        Car[] cars = new Car[carArr.length];
-        for (int i = 0; i < carArr.length; i++) {
-            cars[i] = new Car(carArr[i]);
-        }
-        view.outputView("시도할 회수는 몇 회인가요?");
-        view.emptyView();
-        int racingCnt = inputView.racingCntIn(scanner);
+        outputView.msgView("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        Car[] cars = inputView.readCars(scanner);
 
-        view.emptyView();
-        view.outputView("실행결과");
-        view.emptyView();
+        outputView.msgView("시도할 회수는 몇 회인가요?");
+        int racingCnt = inputView.readRacingCount(scanner);
+
+        outputView.msgView("");
+        outputView.msgView("실행결과");
         for (int x = 0; x < racingCnt; x++) {
-            racingRound(cars, view);
-            view.emptyView();
+            for (int carIdx = 0; carIdx < cars.length; carIdx++) {
+                setCarPosition(cars, carIdx);
+                outputView.printCarPosition(cars, carIdx);
+            }
+            outputView.msgView("");
         }
-        view.outputView("최종 우승자: ");
-        winner(cars, view);
+
+        outputView.nextMsgView("최종 우승자: ");
+        List<Car> winnerCarsList = getWinnerCars(cars);
+        outputView.printWinner(winnerCarsList);
     }
 
-    private static void racingRound(Car[] cars, View view) {
-        for (int i = 0; i < cars.length; i++) {
-            int randomNum = RandomUtils.nextInt(0, 9);
-            if (randomNum > STANDARD_NUMBER) {
-                cars[i].addPosition();
-            }
-            view.outputView(cars[i].getName());
-            view.outputView(" : ");
-            int carPositionCnt = cars[i].getPosition();
-            if (carPositionCnt > 0) {
-                for (int k = 0; k < carPositionCnt; k++) {
-                    view.outputView("-");
-                }
-            }
-            view.emptyView();
+
+    private static void setCarPosition(Car[] cars, int carIdx) {
+        int randomNum = RandomUtils.nextInt(0, 9);
+        if (randomNum > STANDARD_NUMBER) {
+            cars[carIdx].addPosition();
         }
     }
 
-    private static void winner(Car[] cars, View view) {
+    private static int getMaxPosition(Car[] cars) {
         int maxNum = -1;
-        List<Integer> maxIdxList = new ArrayList<>();
         for (int i = 0; i < cars.length; i++) {
-            if (maxNum < cars[i].getPosition()) maxNum = cars[i].getPosition();
-        }
-        for (int i = 0; i < cars.length; i++) {
-            if (maxNum == cars[i].getPosition()) maxIdxList.add(i);
-        }
-        view.outputView(cars[maxIdxList.get(0)].getName());
-        if (maxIdxList.size() > 1) {
-            for (int i = 1; i < maxIdxList.size(); i++) {
-                view.outputView(", ");
-                view.outputView(cars[maxIdxList.get(i)].getName());
+            if (maxNum < cars[i].getPosition()) {
+                maxNum = cars[i].getPosition();
             }
         }
+        return maxNum;
+    }
+
+    private static List<Car> getWinnerCars(Car[] cars) {
+        int maxNum = getMaxPosition(cars);
+        List<Car> winnerCarsList = new ArrayList<>();
+        for (int i = 0; i < cars.length; i++) {
+            if (maxNum == cars[i].getPosition()) {
+                winnerCarsList.add(cars[i]);
+            }
+        }
+        return winnerCarsList;
     }
 }
