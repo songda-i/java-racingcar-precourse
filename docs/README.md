@@ -89,15 +89,18 @@ idx[0, 1, 3, 4]
 ### 2차 프로그래밍 요구사항
 
 - [x] Car 객체 사용
+
   - [x] String[] carArr 와 int[] carPositionNum 의 데이터를 묶어서
     각 Car 인스턴스로 쓰자
-- [ ] 함수 분리 (ctrl+alt+M)
 
-### 3차 리펙토링
+    
 
-- view in/out
-- 깊이는 2까지
-- 메서드는 15라인
+### 3차 리팩토링
+
+- [x] 함수 분리 (ctrl+alt+M) 
+  - [x] 깊이는 2까지
+  - [x] 메서드는 15라인
+- [ ] view in/out
 
 ### ERROR
 
