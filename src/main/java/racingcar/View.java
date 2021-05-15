@@ -2,7 +2,6 @@ package racingcar;
 
 public class View {
 
-    void inputView() {}
     void outputView(Object obj) {
         System.out.print(obj);
     }
