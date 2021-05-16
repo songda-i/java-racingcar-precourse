@@ -14,23 +14,20 @@ public class Application {
         // TODO 구현 진행
         OutputView outputView = new OutputView();
         InputView inputView = new InputView();
-        outputView.msgView("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
+        outputView.printMsg("경주할 자동차 이름을 입력하세요.(이름은 쉼표(,) 기준으로 구분)");
         Car[] cars = inputView.readCars(scanner);
 
-        outputView.msgView("시도할 회수는 몇 회인가요?");
+        outputView.printMsg("시도할 회수는 몇 회인가요?");
         int racingCnt = inputView.readRacingCount(scanner);
 
-        outputView.msgView("");
-        outputView.msgView("실행결과");
+        outputView.printMsg("\n실행결과");
         for (int x = 0; x < racingCnt; x++) {
             for (int carIdx = 0; carIdx < cars.length; carIdx++) {
                 setCarPosition(cars, carIdx);
-                outputView.printCarPosition(cars, carIdx);
             }
-            outputView.msgView("");
+            outputView.printCarPosition(cars);
         }
 
-        outputView.nextMsgView("최종 우승자: ");
         List<Car> winnerCarsList = getWinnerCars(cars);
         outputView.printWinner(winnerCarsList);
     }
