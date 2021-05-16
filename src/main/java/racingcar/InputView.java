@@ -3,6 +3,7 @@ package racingcar;
 import java.util.Scanner;
 
 public class InputView {
+
     int readRacingCount(Scanner scanner) {
         return scanner.nextInt();
     }
