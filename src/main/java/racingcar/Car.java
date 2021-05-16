@@ -10,9 +10,6 @@ public class Car {
     }
 
     // 추가 기능 구현
-    void setPosition(int position) {
-        this.position = position;
-    }
     void addPosition() {
         this.position++;
     }
