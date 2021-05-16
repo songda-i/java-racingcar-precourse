@@ -25,7 +25,7 @@ public class Application {
             for (int carIdx = 0; carIdx < cars.length; carIdx++) {
                 setCarPosition(cars, carIdx);
             }
-            outputView.printCarPosition(cars);
+            outputView.printCarGetName(cars);
         }
 
         List<Car> winnerCarsList = getWinnerCars(cars);
