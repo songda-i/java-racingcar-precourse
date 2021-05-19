@@ -9,7 +9,7 @@ public class Application {
 
     private static final int STANDARD_NUMBER = 4;
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
         final Scanner scanner = new Scanner(System.in);
         // TODO 구현 진행
         OutputView outputView = new OutputView();
