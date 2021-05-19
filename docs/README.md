@@ -37,9 +37,9 @@ jun : -----
 ### 1차 Application 기능 구현
 
 - [x] 입력된 자동차 모으고 갯수세기 carCnt 
-  - [ ] 글자수 5초과 err
+  - [x] 글자수 5초과 err
 - [x] 입력된 시도횟수 int gameCnt
-  - [ ] 숫자아님 err
+  - [x] 숫자아님 err
 - [x] 각 자동차 랜덤수 뽑기 random
   - [x] 3이하 +0 / 4이상 +1위치
 - [x] 회당 각 자동차 출력
@@ -111,10 +111,14 @@ idx[0, 1, 3, 4]
 
     
 
+## :rabbit2: 피드백
+
 ### ERROR
 
-- error
-  - [ERROR] 시도 횟수는 숫자여야 한다.
+- [x] error
+
+- [ERROR] 시도 횟수는 숫자여야 한다.
+- [ERROR] 자동차 이름은 5자 이하만 가능합니다.
 
 
 
@@ -122,3 +126,26 @@ idx[0, 1, 3, 4]
 
 - [x] 메서드는 15라인
 - [x] else 예약어 안쓰기
+
+
+
+### STDUY
+
+- for each 문 : for i 에서 i를 안쓰고 그 배열의 원소 자체를 사용할 때 대체해서 직관적으로 사용
+
+- Exception
+
+  - ```
+    // 비추천
+    
+    e.printStackTrace(); // 에러추적문구
+    System.exit(1); // 비정상종료
+    ```
+
+  - ```
+    // 추천 : try catch로 처리 할 때까지 위로위로 e 올라간다
+    
+    throw new RuntimeException; // 언체크Exception
+    ```
+
+    
