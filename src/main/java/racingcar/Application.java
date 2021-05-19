@@ -42,9 +42,9 @@ public class Application {
 
     private static int getMaxPosition(Car[] cars) {
         int maxNum = -1;
-        for (int i = 0; i < cars.length; i++) {
-            if (maxNum < cars[i].getPosition()) {
-                maxNum = cars[i].getPosition();
+        for (Car car : cars) {
+            if (maxNum < car.getPosition()) {
+                maxNum = car.getPosition();
             }
         }
         return maxNum;
@@ -53,9 +53,9 @@ public class Application {
     private static List<Car> getWinnerCars(Car[] cars) {
         int maxNum = getMaxPosition(cars);
         List<Car> winnerCarsList = new ArrayList<>();
-        for (int i = 0; i < cars.length; i++) {
-            if (maxNum == cars[i].getPosition()) {
-                winnerCarsList.add(cars[i]);
+        for (Car car : cars) {
+            if (maxNum == car.getPosition()) {
+                winnerCarsList.add(car);
             }
         }
         return winnerCarsList;
